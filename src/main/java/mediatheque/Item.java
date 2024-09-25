@@ -21,4 +21,5 @@ public abstract class Item {
 		return title;
 	}
 	
+	public abstract String accept(ItemVisitor i);
 }

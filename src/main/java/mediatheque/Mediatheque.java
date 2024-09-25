@@ -5,28 +5,30 @@ import java.util.List;
 
 public class Mediatheque {
 	private final List<Item> items = new LinkedList<>();
+	private final PrintCatalogVisitor visitorCatalog = new PrintCatalogVisitor();
+	private final PrintOnlyBooksVisitor visitorBook = new PrintOnlyBooksVisitor();
+	private final PrintOnlyCDsVisitor visitorCD = new PrintOnlyCDsVisitor();
 
 	public void addItem(Item i) {
 		items.add(i);
 	}
 	
 	public void printCatalog() {
-		for (Item i : items)
-			i.print();
+		for (Item i : items) {
+			System.out.println(i.accept(visitorCatalog));
+		}
 	}
 	
-	public void printOnlyBooks() {
-		throw new UnsupportedOperationException("Not supported yet."); 
-		/*
-		//avec instanceof
-		for (Item i : items)
-			if (i instanceof Book)
-				System.out.println(i);
-		*/
+	public void printOnlyBooks() {		
+		for (Item i : items){
+				System.out.println(i.accept(visitorBook));
+		}
 	}
 
 	public void printOnlyCDs() {
-		throw new UnsupportedOperationException("Not supported yet."); 
+		for (Item i : items){
+			System.out.println(i.accept(visitorCD));
+		}
 	}
 
 }
